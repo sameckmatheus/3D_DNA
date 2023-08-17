@@ -4,9 +4,9 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
-def load_dna_strcture(pdb_file):
-  paser = PDBParser(quit=true)
-  structure = paser.get_structure('DNA', pdb_file)
+def load_dna_structure(pdb_file):
+  parser = PDBParser(QUIET=True)
+  structure = parser.get_structure('DNA', pdb_file)
   model = structure[0]
   return model
 
@@ -31,3 +31,23 @@ def draw_dna_model(model):
             glVertex3f(x, y, z)
     glEnd()
     glFlush()
+    
+  # Inicializando a matriz de projeção
+  glMatrixMode(GL_PROJECTION)
+  glLoadIdentity()
+  gluPerspective(45, (800 / 600), 1, 50)
+
+  # Definindo a posição do observador
+  glMatrixMode(GL_MODELVIEW)
+  glLoadIdentity()
+  gluLookAt(0, 0, -15, 0, 0, 0, 0, 1, 0)
+
+  # Iniciando o loop de renderização
+  glutDisplayFunc(render)
+  glutIdleFunc(render)
+  glutMainLoop()
+
+if __name__ == "__main__":
+  # Substituindo "dna.pdb" pelo caminho do arquivo PDB que contém a estrutura do DNA
+  dna_structure = load_dna_structure("dna.pdb")
+  draw_dna_model(dna_structure)
