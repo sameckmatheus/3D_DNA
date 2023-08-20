@@ -33,3 +33,4 @@ def draw_dna_model(model):
           x, y, z = atom.get_coord()
           glVertex3f(x, y, z)
   glEnd()
+
