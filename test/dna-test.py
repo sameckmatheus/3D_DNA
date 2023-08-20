@@ -23,3 +23,13 @@ def load_dna_structure(pdb_file):
   return model
 
 # Definindo uma função para desenhar a estrutura do DNA usando linhas
+def draw_dna_model(model):
+  glLineWidth(2.0)
+  glBegin(GL_LINE)
+  for chain in model.get_chains():
+    for residue in chain:
+      for atom in residue:
+        if atom.get_name() == "p":
+          x, y, z = atom.get_coord()
+          glVertex3f(x, y, z)
+  glEnd()
